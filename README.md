@@ -128,4 +128,23 @@ Finished in 1.202169s, 7.4865 runs/s, 16.6366 assertions/s.
 
 如果觉得好，给项目点颗星吧～
 
+##小组说明
+获取源码分支
+首先登录github网站fork https://github.com/liuqiaoping7/CourseSelect.git
+git clone https://github.com/自己的用户名/CourseSelect.git
+
+推送自己的代码，三个命令就行了
+git add --all
+git commit -m "application for.."
+git push origin master
+push request
+到github网页上发起push request即可。
+
+回退操作
+恢复到最近一次提交git reset --hard HEAD 
+或者丢弃单个文件修改就是git checkout -- file
+git clean -dxf则会丢弃所以没有add的修改，保持工作区的清净 
+
+基本上这些命令就差不多够了
+如果希望系统了解git，可看看Git教程By廖雪峰.pdf，浅显易懂 百度网盘 http://pan.baidu.com/s/1eSkHTrc 提取码 dagu
 
