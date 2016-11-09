@@ -156,4 +156,4 @@ git clean -dxf则会丢弃所以没有add的修改，保持工作区的清净
 基本上这些命令就差不多够了
 如果希望系统了解git，可看看Git教程By廖雪峰.pdf
 百度网盘 http://pan.baidu.com/s/1eSkHTrc 提取码 dagu
-
+test git
