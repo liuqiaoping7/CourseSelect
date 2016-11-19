@@ -1,7 +1,7 @@
 class CoursesController < ApplicationController
 
   before_action :student_logged_in, only: [:select, :quit, :list]
-  before_action :teacher_logged_in, only: [:new, :create, :edit, :destroy, :update]
+  before_action :teacher_logged_in, only: [:new, :create, :edit, :destroy, :update,:open]
   before_action :logged_in, only: :index
 
   #-------------------------for teachers----------------------
@@ -38,16 +38,31 @@ class CoursesController < ApplicationController
   def destroy
     @course=Course.find_by_id(params[:id])
     current_user.teaching_courses.delete(@course)
-    @course.destroy
+    @course.dest
     flash={:success => "成功删除课程: #{@course.name}"}
     redirect_to courses_path, flash: flash
+  end
+  
+  def open
+    @course = Course.find_by_id(params[:id])
+    @course.update_attributes(:open=>true)
+    redirect_to courses_path, flash: {:success => "已经成功开启该课程:#{ @course.name}"}
+  end
+
+  def close
+    @course = Course.find_by_id(params[:id])
+    @course.update_attributes(:open=>false)
+    redirect_to courses_path, flash: {:success => "已经成功关闭该课程:#{ @course.name}"}
   end
 
   #-------------------------for students----------------------
 
   def list
-    @course=Course.all
+
+    @course=Course.find_by_sql("select * from courses where open=true")
+   # @course=@course.find(:all,:conditions=>["open =  true"])
     @course=@course-current_user.courses
+    
   end
 
   def select
@@ -60,6 +75,7 @@ class CoursesController < ApplicationController
   def quit
     @course=Course.find_by(params[:id])
     current_user.courses.delete(@course)
+    
     flash={:success => "成功退选课程: #{@course.name}"}
     redirect_to courses_path, flash: flash
   end
