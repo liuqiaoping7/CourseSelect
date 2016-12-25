@@ -3,113 +3,10 @@
     <div class="col-md-8">
       
        
-      <div class="col-md-4" id="main2"  style="width: 700px;height:500px;"></div>
+      <div class="col-md-4" id="main"  style="width: 700px;height:500px;"></div>
   <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <!--<div id="main2" style="width: 500px;height:300px;"></div>-->
-    <script type="text/javascript">
-        // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('main2'));
-var dataAxis = ['1.0', '1.5', '2.0', '2.5', '3.0', '3.5', '4.0'];
-var data = [5, 7, 8, 2, 3, 6, 4.0];
-var yMax = 10;
-var dataShadow = [];
-
-for (var i = 0; i < data.length; i++) {
-    dataShadow.push(yMax);
-}
-
-option = {
-    title: {
-        text: '学分分值统计图',
-        subtext: '总的学科分布统计图'
-    },
-    xAxis: {
-        data: dataAxis,
-        axisLabel: {
-            inside: true,
-            textStyle: {
-                color: '#fff'
-            }
-        },
-        axisTick: {
-            show: false
-        },
-        axisLine: {
-            show: false
-        },
-        z: 10
-    },
-    yAxis: {
-        axisLine: {
-            show: false
-        },
-        axisTick: {
-            show: false
-        },
-        axisLabel: {
-            textStyle: {
-                color: '#999'
-            }
-        }
-    },
-    dataZoom: [
-        {
-            type: 'inside'
-        }
-    ],
-    series: [
-        { // For shadow
-            type: 'bar',
-            itemStyle: {
-                normal: {color: 'rgba(0,0,0,0.05)'}
-            },
-            barGap:'-100%',
-            barCategoryGap:'40%',
-            data: dataShadow,
-            animation: false
-        },
-        {
-            type: 'bar',
-            itemStyle: {
-                normal: {
-                    color: new echarts.graphic.LinearGradient(
-                        0, 0, 0, 1,
-                        [
-                            {offset: 0, color: '#83bff6'},
-                            {offset: 0.5, color: '#188df0'},
-                            {offset: 1, color: '#188df0'}
-                        ]
-                    )
-                },
-                emphasis: {
-                    color: new echarts.graphic.LinearGradient(
-                        0, 0, 0, 1,
-                        [
-                            {offset: 0, color: '#2378f7'},
-                            {offset: 0.7, color: '#2378f7'},
-                            {offset: 1, color: '#83bff6'}
-                        ]
-                    )
-                }
-            },
-            data: data
-        }
-    ]
-};
-
-// Enable data zoom when user click bar.
-var zoomSize = 6;
-myChart.on('click', function (params) {
-    console.log(dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)]);
-    myChart.dispatchAction({
-        type: 'dataZoom',
-        startValue: dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)],
-        endValue: dataAxis[Math.min(params.dataIndex + zoomSize / 2, data.length - 1)]
-    });
-});
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
-    </script>
+    <!--<div id="main" style="width: 500px;height:300px;"></div>-->
+   
       </div>
       
       
@@ -206,122 +103,341 @@ myChart.on('click', function (params) {
   <div class="row-md-12">
     <div class="col-md-6">
   <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="main" style="width: 500px;height:450px;"></div>
-    <script type="text/javascript">
-        // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('main'));
-option = {
-    title : {
-        text: '课程分布情况',
-        subtext: '来自课程网站数据库',
-        x:'center'
-    },
-    tooltip : {
-        trigger: 'item',
-        formatter: "{a} <br/>{b} : {c} ({d}%)"
-    },
-    legend: {
-        x : 'center',
-        y : 'bottom',
-        data:['一级学科核心课','专业核心课','专业普及课','专业研讨课','公共选修课','一级学科普及课']
-    },
-    toolbox: {
-        show : true,
-        feature : {
-            mark : {show: true},
-            dataView : {show: true, readOnly: false},
-            magicType : {
-                show: true,
-                type: ['pie', 'funnel']
-            },
-            restore : {show: true},
-            saveAsImage : {show: true}
-        }
-    },
-    calculable : true,
-    series : [
-       
-        {
-            name:'面积模式',
-            type:'pie',
-            radius : [30, 110],
-            center : ['50%', '50%'],
-            roseType : 'area',
-            data:[
-                {value:50, name:'一级学科核心课'},
-                {value:30, name:'专业核心课'},
-                {value:15, name:'专业普及课'},
-                {value:20, name:'专业研讨课'},
-                {value:10, name:'公共选修课'},
-                {value:55, name:'一级学科普及课'}
-                
-            ]
-        }
-    ]
-};
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
-    </script>
+    <div id="main2" style="width: 500px;height:450px;"></div>
       </div>
      
       <div class="col-md-6">
   <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div id="main3" style="width: 450px;height:450px;"></div>
-    <script type="text/javascript">
-        // 基于准备好的dom，初始化echarts实例
-        var chart = echarts.init(document.getElementById('main3'), 'macarons');
-        /*var myChart = echarts.init(document.getElementById('main3'),'macarons');*/
-option = {
-    title: {
-        text: '课程时间统计',
-        subtext: '所有课程的时间状态',
-        x:'center',
-        top: 'top'
-    },
-    tooltip: {
-        trigger: 'item',
-        formatter: "{a} <br/>{b} : {c}%"
-    },
-    toolbox: {
-        orient: 'vertical',
-        top: 'center',
-        feature: {
-            dataView: {readOnly: false},
-            restore: {},
-            saveAsImage: {}
-        }
-    },
-    legend: {
-        orient: 'vertical',
-        left: 'left',
-        data: ['周一','周二','周三','周四','周五']
-    },
-    calculable: true,
-    series: [
-        {
-            name: '漏斗图',
-            type: 'funnel',
-            width: '40%',
-            height: '45%',
-            left: '25%',
-            top: '50%',
-            data:[
-                {value: 70, name:'周一'},
-                {value: 30, name:'周二'},
-                {value: 100, name:'周三'},
-                {value: 60, name:'周四'},
-                {value: 90, name:'周五'}
-            ]
-        }
-    ]
-};
-
-        // 使用刚指定的配置项和数据显示图表。
-        chart.setOption(option);
-    </script>
       </div> 
       
     </div>
+     <script type="text/javascript">
+     
+        
+     
+      $.ajax({
+          type: "GET",
+          url: "<%= showdata_url %>",
+          dataType: 'text',
+          success: function (data) {
+            
+            var course = eval("(" + data + ")");  
+            
+            
+            //计算学科分值分布
+            var arrayObj = new Array();　//创建一个数组存储分数
+            //初始化
+            for(var i=0;i<7;i++)
+            {
+                arrayObj[i] = 0;
+            }
+            
+            for(var i=0;i<course.length;i++)
+            {
+                var temp = parseInt(course[i].credit.substring(3));
+                if(temp==1.0) arrayObj[0]++;
+                else if(temp==1.5) arrayObj[1]++;
+                else if(temp==2.0) arrayObj[2]++;
+                else if(temp==2.5) arrayObj[3]++;
+                else if(temp==3.0) arrayObj[4]++;
+                else if(temp==3.5) arrayObj[5]++;
+                else arrayObj[6]++;
+            }
+            // alert(arrayObj);
+            // 放入main中
+            var main_dataAxis = ['1.0', '1.5', '2.0', '2.5', '3.0', '3.5', '4.0'];
+            var main_data = arrayObj;
+            main(main_dataAxis,main_data);
+            
+            //统计核心课分布
+            var typeObj = new Array();　//创建一个数组存储类别数目
+            //初始化
+            for(var i=0;i<6;i++)
+            {
+                typeObj[i] = 0;
+            }
+            //
+            for(var i=0;i<course.length;i++)
+            {
+                if(course[i].course_type=="一级学科核心课") typeObj[0]++;
+                else if(course[i].course_type=="专业核心课") typeObj[1]++;
+                else if(course[i].course_type=="专业普及课") typeObj[2]++;
+                else if(course[i].course_type=="专业研讨课") typeObj[3]++;
+                else if(course[i].course_type=="公共选修课") typeObj[4]++;
+                else typeObj[5]++;
+            }
+            // alert(typeObj);
+            var course_type = [
+                    {value:typeObj[0], name:'一级学科核心课'},
+                    {value:typeObj[1], name:'专业核心课'},
+                    {value:typeObj[2], name:'专业普及课'},
+                    {value:typeObj[3], name:'专业研讨课'},
+                    {value:typeObj[4], name:'公共选修课'},
+                    {value:typeObj[5], name:'一级学科普及课'}
+                    
+                ];
+            //放入main2
+            main2(course_type);
+            
+            
+            //课程时间图
+            var timeObj = new Array();　//创建一个数组存储类别数目
+            for(var i=0;i<5;i++)
+            {
+                timeObj[i] = 0;
+            }
+            for(var i=0;i<course.length;i++)
+            {
+                if(course[i].course_time.indexOf("一")>0) timeObj[0]++;
+                else if(course[i].course_time.indexOf("二")>0) timeObj[1]++;
+                else if(course[i].course_time.indexOf("三")>0) timeObj[2]++;
+                else if(course[i].course_time.indexOf("四")>0) timeObj[3]++;
+                else timeObj[4]++;
+            }
+            // alert(timeObj);
+            var course_date = [
+                    {value: timeObj[0], name:'周一'},
+                    {value: timeObj[1], name:'周二'},
+                    {value: timeObj[2], name:'周三'},
+                    {value: timeObj[3], name:'周四'},
+                    {value: timeObj[4], name:'周五'}
+                ];
+                
+            //填入main3
+            main3(course_date);
+            
+          },
+           error: function () {
+            alert('error')
+          },
+          timeout: function () {
+            alert('time out')
+          }
+      });
+   
+    
+    
+    
+    
+    function main(dataAxis,data)
+    {
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+    
+    var yMax = 15;
+    var dataShadow = [];
+    
+    for (var i = 0; i < data.length; i++) {
+        dataShadow.push(yMax);
+    }
+    
+    option = {
+        title: {
+            text: '学分分值统计图',
+            subtext: '总的学科分布统计图'
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: "学分分值 <br/>{b}学分 : {c} 门"
+        },
+        xAxis: {
+            data: dataAxis,
+            axisLabel: {
+                inside: true,
+                textStyle: {
+                    color: '#fff'
+                }
+            },
+            axisTick: {
+                show: false
+            },
+            axisLine: {
+                show: false
+            },
+            z: 10
+        },
+        yAxis: {
+            axisLine: {
+                show: false
+            },
+            axisTick: {
+                show: false
+            },
+            axisLabel: {
+                textStyle: {
+                    color: '#999'
+                }
+            }
+        },
+        dataZoom: [
+            {
+                type: 'inside'
+            }
+        ],
+        series: [
+            { // For shadow
+                type: 'bar',
+                itemStyle: {
+                    normal: {color: 'rgba(0,0,0,0.05)'}
+                },
+                barGap:'-100%',
+                barCategoryGap:'40%',
+                data: dataShadow,
+                animation: false
+            },
+            {
+                type: 'bar',
+                itemStyle: {
+                    normal: {
+                        color: new echarts.graphic.LinearGradient(
+                            0, 0, 0, 1,
+                            [
+                                {offset: 0, color: '#83bff6'},
+                                {offset: 0.5, color: '#188df0'},
+                                {offset: 1, color: '#188df0'}
+                            ]
+                        )
+                    },
+                    emphasis: {
+                        color: new echarts.graphic.LinearGradient(
+                            0, 0, 0, 1,
+                            [
+                                {offset: 0, color: '#2378f7'},
+                                {offset: 0.7, color: '#2378f7'},
+                                {offset: 1, color: '#83bff6'}
+                            ]
+                        )
+                    }
+                },
+                data: data
+            }
+        ]
+    };
+
+    // Enable data zoom when user click bar.
+    var zoomSize = 6;
+    myChart.on('click', function (params) {
+        console.log(dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)]);
+        myChart.dispatchAction({
+            type: 'dataZoom',
+            startValue: dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)],
+            endValue: dataAxis[Math.min(params.dataIndex + zoomSize / 2, data.length - 1)]
+        });
+    });
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+}
+    
+    
+    // 基于准备好的dom，初始化echarts实例
+function main2(course_type)
+    {
+    var myChart = echarts.init(document.getElementById('main2'));
+    option = {
+        title : {
+            text: '课程分布情况',
+            subtext: '来自课程网站数据库',
+            x:'center'
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            x : 'center',
+            y : 'bottom',
+            data:['一级学科核心课','专业核心课','专业普及课','专业研讨课','公共选修课','一级学科普及课']
+        },
+        toolbox: {
+            show : true,
+            feature : {
+                mark : {show: true},
+                dataView : {show: true, readOnly: false},
+                magicType : {
+                    show: true,
+                    type: ['pie', 'funnel']
+                },
+                restore : {show: true},
+                saveAsImage : {show: true}
+            }
+        },
+        calculable : true,
+        series : [
+           
+            {
+                name:'面积模式',
+                type:'pie',
+                radius : [30, 110],
+                center : ['50%', '50%'],
+                roseType : 'area',
+                data:course_type
+            }
+        ]
+    };
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);     
+}
+    
+    
+    
+
+
+function main3(coure_date)
+{
+            // 基于准备好的dom，初始化echarts实例
+            var chart = echarts.init(document.getElementById('main3'), 'macarons');
+            /*var myChart = echarts.init(document.getElementById('main3'),'macarons');*/
+    option = {
+        title: {
+            text: '课程时间统计',
+            subtext: '所有课程的时间状态',
+            x:'center',
+            top: 'top'
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b}课程 : {c} 门"
+        },
+        toolbox: {
+            orient: 'vertical',
+            top: 'center',
+            feature: {
+                dataView: {readOnly: false},
+                restore: {},
+                saveAsImage: {}
+            }
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: ['周一','周二','周三','周四','周五']
+        },
+        calculable: true,
+        series: [
+            {
+                name: '课程时间图',
+                type: 'funnel',
+                width: '40%',
+                height: '45%',
+                left: '25%',
+                top: '50%',
+                data:coure_date
+            }
+        ]
+    };
+    
+            // 使用刚指定的配置项和数据显示图表。
+            chart.setOption(option);
+          
+}
+
+
+
+
+ 
+
+    </script>
    
 </div>
 
