@@ -3,13 +3,25 @@ class CoursesController < ApplicationController
   before_action :student_logged_in, only: [:select, :quit, :list]
   before_action :teacher_logged_in, only: [:new, :create, :edit, :destroy, :update,:open]
   before_action :logged_in, only: :index
+  
+  
+  
+  
+  
 
   #-------------------------for teachers----------------------
 
   def new
     @course=Course.new
   end
-
+  
+  # def list
+  #   @course=Course.all
+  #   @course=@course-current_user.courses
+  #   #填入你的代码，找到已经开放的课程传给视图
+  #   redirect_to courses_path, flash: {success: "已传到新界面"}
+  # end
+  
   def create
     @course = Course.new(course_params)
     if @course.save
@@ -47,14 +59,27 @@ class CoursesController < ApplicationController
   
   def open
     @course = Course.find_by_id(params[:id])
-    @course.update_attributes(:open=>true)
-    redirect_to courses_path, flash: {:success => "已经成功开启该课程:#{ @course.name}"}
+<<<<<<< HEAD
+=======
+    if @course.update_attribute("open",true)
+      flash={:success => "已经成功开启该课程:#{ @course.name}"}
+    else
+      flash={:warning => "未成功开启该课程:#{ @course.name}"}
+    end
+    redirect_to courses_path, flash: flash
+>>>>>>> merge
   end
 
   def close
     @course = Course.find_by_id(params[:id])
-    @course.update_attributes(:open=>false)
-    redirect_to courses_path, flash: {:success => "已经成功关闭该课程:#{ @course.name}"}
+<<<<<<< HEAD
+======    if @course.update_attribute("open",false)
+      flash={:success => "已经关闭该课程:#{ @course.name}"}
+    else
+      flash={:warning => "未成功关闭该课程:#{ @course.name}"}
+    end
+    redirect_to courses_path, flash: flash
+>>>>>>> merge
   end
 
   #-------------------------for students----------------------
@@ -64,7 +89,15 @@ class CoursesController < ApplicationController
     @course=Course.find_by_sql("select * from courses where open=true")
    # @course=@course.find(:all,:conditions=>["open =  true"])
     @course=@course-current_user.courses
+<<<<<<< HEAD
     
+=======
+    @course.each do |course|
+        if !course.open
+            @course.delete(course)
+        end
+    end
+>>>>>>> merge
   end
 
   def select
