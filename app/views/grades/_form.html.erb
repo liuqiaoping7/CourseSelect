@@ -1,7 +1,7 @@
 <%= form_for @grade, html: {class: 'form-horizontal', role: 'form'}, url: grade_url(id: @grade.id, course_id: @grade.course.id), method: :patch do |f| %>
     <%= render "shared/error_messages", :object => @grade %>
 
-
+    
 
     <div class="form-group">
       <%= f.label "课程名", class: 'col-sm-3 control-label' %>
@@ -96,6 +96,6 @@
     
  
     <%= f.submit '提交', class: "btn btn-success btn-block" %>
-    <%= link_to '取消', grades_path, :class => "btn btn-default btn-block" %>
+    <%= link_to '取消',grades_path(course_id: @grade.course.id), :method => :get , :class => "btn btn-default btn-block" %>
 
 <% end %>
