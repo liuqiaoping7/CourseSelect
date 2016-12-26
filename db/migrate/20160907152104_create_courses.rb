@@ -10,11 +10,11 @@ class CreateCourses < ActiveRecord::Migration
       t.string :credit
       t.integer :limit_num
       t.integer :student_num, default: 0
+      t.float :average, default: 0.0
       t.string :class_room
       t.string :course_time
       t.string :course_week
       t.boolean :degree_course, default: false
-      
       t.belongs_to :teacher
 
       t.timestamps null: false

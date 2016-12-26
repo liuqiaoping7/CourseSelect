@@ -29,7 +29,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :grades, only: [:index, :update]
+  resources :grades, only: [:index, :update,:edit]
   resources :users
 
   get 'sessions/login' => 'sessions#new'

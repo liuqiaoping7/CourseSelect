@@ -25,9 +25,11 @@ ActiveRecord::Schema.define(version: 20161119021315) do
     t.string   "credit"
     t.integer  "limit_num"
     t.integer  "student_num",   default: 0
+    t.float    "average",       default: 0.0
     t.string   "class_room"
     t.string   "course_time"
     t.string   "course_week"
+    t.boolean  "degree_course", default: false
     t.integer  "teacher_id"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
@@ -38,8 +40,12 @@ ActiveRecord::Schema.define(version: 20161119021315) do
     t.integer  "course_id"
     t.integer  "user_id"
     t.integer  "grade"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "grade_h",    default: 0
+    t.integer  "grade_e",    default: 0
+    t.integer  "grade_ep",   default: 100
+    t.integer  "grade_hp",   default: 0
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   add_index "grades", ["course_id"], name: "index_grades_on_course_id", using: :btree

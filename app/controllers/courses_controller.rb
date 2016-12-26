@@ -29,10 +29,12 @@ class CoursesController < ApplicationController
     @course = Course.find_by_id(params[:id])
     if @course.update_attributes(course_params)
       flash={:info => "更新成功"}
+      redirect_to courses_path, flash: flash
     else
       flash={:warning => "更新失败"}
+      render 'edit'
     end
-    redirect_to courses_path, flash: flash
+    
   end
 
   def destroy

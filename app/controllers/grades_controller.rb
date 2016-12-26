@@ -1,21 +1,31 @@
 class GradesController < ApplicationController
 
-  before_action :teacher_logged_in, only: [:update]
+  before_action :teacher_logged_in, only: [:index,:update,:edit]
 
+  def edit
+    @grade=Grade.find_by_id(params[:id])
+  end
+  
   def update
     @grade=Grade.find_by_id(params[:id])
-    if @grade.update_attributes!(:grade => params[:grade][:grade])
+    if @grade.update_attributes(grade_params)&&@grade.update_attributes!(:grade => (params[:grade][:grade_h].to_f*
+      params[:grade][:grade_hp].to_f/100.0).round.to_i+(params[:grade][:grade_e].to_f*params[:grade][:grade_ep].to_f/100.0).round.to_i)
       flash={:success => "#{@grade.user.name} #{@grade.course.name}的成绩已成功修改为 #{@grade.grade}"}
+      redirect_to grades_path(course_id: params[:course_id]), flash: flash
     else
-      flash={:danger => "上传失败.请重试"}
+      flash={:danger => "修改成绩失败.请检查"}
+      render 'edit'
     end
-    redirect_to grades_path(course_id: params[:course_id]), flash: flash
+
   end
 
   def index
     if teacher_logged_in?
       @course=Course.find_by_id(params[:course_id])
       @grades=@course.grades
+      @grades.each do |grade|
+      grade.course.average=grade.course.average+(grade.grade).to_f/(grade.course.users.length).to_f
+      end      
     elsif student_logged_in?
       @grades=current_user.grades
     else
@@ -34,3 +44,7 @@ class GradesController < ApplicationController
   end
 
 end
+
+  def grade_params
+    params.require(:grade).permit(:grade_h, :grade_hp, :grade_e, :grade_ep)
+  end
