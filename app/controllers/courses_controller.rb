@@ -1,7 +1,7 @@
 class CoursesController < ApplicationController
 
   before_action :student_logged_in, only: [:select, :quit, :list]
-  before_action :teacher_logged_in, only: [:new, :create, :edit, :destroy, :update]
+  before_action :teacher_logged_in, only: [:new, :create, :edit, :destroy, :update,:open]
   before_action :logged_in, only: :index
   
   
@@ -41,22 +41,25 @@ class CoursesController < ApplicationController
     @course = Course.find_by_id(params[:id])
     if @course.update_attributes(course_params)
       flash={:info => "更新成功"}
+      redirect_to courses_path, flash: flash
     else
       flash={:warning => "更新失败"}
+      render 'edit'
     end
-    redirect_to courses_path, flash: flash
+    
   end
 
   def destroy
     @course=Course.find_by_id(params[:id])
     current_user.teaching_courses.delete(@course)
-    @course.destroy
+    @course.dest
     flash={:success => "成功删除课程: #{@course.name}"}
     redirect_to courses_path, flash: flash
   end
   
   def open
     @course = Course.find_by_id(params[:id])
+
     if @course.update_attribute("open",true)
       flash={:success => "已经成功开启该课程:#{ @course.name}"}
     else
@@ -67,6 +70,7 @@ class CoursesController < ApplicationController
 
   def close
     @course = Course.find_by_id(params[:id])
+
     if @course.update_attribute("open",false)
       flash={:success => "已经关闭该课程:#{ @course.name}"}
     else
@@ -78,8 +82,11 @@ class CoursesController < ApplicationController
   #-------------------------for students----------------------
 
   def list
-    @course=Course.all
+
+    @course=Course.find_by_sql("select * from courses where open=true")
+   # @course=@course.find(:all,:conditions=>["open =  true"])
     @course=@course-current_user.courses
+    
     @course.each do |course|
         if !course.open
             @course.delete(course)
@@ -97,6 +104,7 @@ class CoursesController < ApplicationController
   def quit
     @course=Course.find_by(params[:id])
     current_user.courses.delete(@course)
+    
     flash={:success => "成功退选课程: #{@course.name}"}
     redirect_to courses_path, flash: flash
   end
