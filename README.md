@@ -144,7 +144,7 @@ git push origin master
 常用几条命令： 
     git remote add upstream https://github.com/liuqiaoping7/CourseSelect.git    (添加组内公共源)
     git remote -v    (查看是否添加成功)
-	git checkout -b source    (新建一个分支,名称任意)    
+    git checkout -b source    (新建一个分支,名称任意)    
     git pull upstream master    (分支与组内源同步)
     git checkout master    (回到master分支)
     git merge source    (合并source到master分支，merge只解决文件内容合并，自动合并冲突部分手动修改，逻辑冲突部分测试后发现)
