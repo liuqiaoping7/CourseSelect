@@ -16,7 +16,7 @@
       <div class="col-sm-9">
         <div class="input-group">
           <div class="input-group-addon"><span class="glyphicon glyphicon-arrow-right"></span></div>
-          <%= f.text_field :course_type, class: 'form-control', placeholder: "输入课程属性" %>
+           <%= f.select :exam_type,Course::Coursetype %>
         </div>
       </div>
     </div>
@@ -26,7 +26,7 @@
       <div class="col-sm-9">
         <div class="input-group">
           <div class="input-group-addon"><span class="glyphicon glyphicon-arrow-right"></span></div>
-          <%= f.text_field :teaching_type, class: 'form-control', placeholder: "输入授课方式" %>
+         <%= f.select :teaching_type,Course::Teachingtype %>
         </div>
       </div>
     </div>
@@ -36,7 +36,13 @@
       <div class="col-sm-9">
         <div class="input-group">
           <div class="input-group-addon"><span class="glyphicon glyphicon-arrow-right"></span></div>
-          <%= f.text_field :exam_type, class: 'form-control', placeholder: "输入考试方式" %>
+          <%= f.select :exam_type,Course::Examtype %>
+          <!--<select class="form-control",name="course[exam_type]" id="course_exam_type"><option value="课堂开卷">课堂开卷</option>-->
+          <!--<option selected="selected" value="闭卷笔试">闭卷笔试</option>-->
+          <!--<option value="读书报告">读书报告</option>-->
+          <!--<option value="课上讨论">课上讨论</option>-->
+          <!--<option value="大作业">大作业</option>-->
+          <!--<option value="其他">其他</option></select>-->
         </div>
       </div>
     </div>
