@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     end
     collection do
       get :list
+      get :schedule
     end
   end
 
