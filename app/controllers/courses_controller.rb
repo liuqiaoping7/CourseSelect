@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
 
-  before_action :student_logged_in, only: [:select, :quit, :list]
+  before_action :student_logged_in, only: [:select, :quit, :list, :watch] #add watch
   before_action :teacher_logged_in, only: [:new, :create, :edit, :destroy, :update,:open]
   before_action :logged_in, only: :index
   
@@ -34,6 +34,10 @@ class CoursesController < ApplicationController
   end
 
   def edit
+    @course=Course.find_by_id(params[:id])
+  end
+  
+  def watch
     @course=Course.find_by_id(params[:id])
   end
 
