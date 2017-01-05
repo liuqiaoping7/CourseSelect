@@ -82,6 +82,11 @@ class CoursesController < ApplicationController
     end
     redirect_to courses_path, flash: flash
   end
+  
+  def schedule
+    @course=current_user.teaching_courses if teacher_logged_in?
+  end
+  
 
   #-------------------------for students----------------------
 
