@@ -27,14 +27,16 @@ Rails.application.routes.draw do
       get :quit
       get :open
       get :close
+      get :watch
     end
     collection do
       get :list
       post 'search', :action => 'search'
+      get :schedule
     end
   end
 
-  resources :grades, only: [:index, :update,:edit]
+  resources :grades, only: [:index, :update,:edit] 
   resources :users
 
   get 'sessions/login' => 'sessions#new'
