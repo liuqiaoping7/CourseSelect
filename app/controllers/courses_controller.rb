@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
 
-  before_action :student_logged_in, only: [:select, :quit, :list]
+  before_action :student_logged_in, only: [:select, :quit, :list, :search]
   before_action :teacher_logged_in, only: [:new, :create, :edit, :destroy, :update,:open]
   before_action :logged_in, only: :index
   
@@ -94,6 +94,22 @@ class CoursesController < ApplicationController
     end
   end
 
+  def search
+    # @course=Course.find_by_name(params[:name])
+    # @course=Course.find_by_sql("select * from courses where (open=true) and (course_type=#{@coursetype})")
+
+    @coursetype= params[:coursetype]
+    # @course=Course.find :all, :conditions => ["open =  true"]
+    # @course=Course.select :conditions => ["open =  true"]
+    @course=Course.all
+    @course.each do |course|
+      if (course.course_type != @coursetype )
+
+      end
+    end
+
+  end
+
   def select
     @course=Course.find_by_id(params[:id])
     current_user.courses<<@course
@@ -102,7 +118,7 @@ class CoursesController < ApplicationController
   end
 
   def quit
-    @course=Course.find_by(params[:id])
+    @course=Course.find_by_id(params[:id])
     current_user.courses.delete(@course)
     
     flash={:success => "成功退选课程: #{@course.name}"}

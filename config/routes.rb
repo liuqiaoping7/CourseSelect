@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     end
     collection do
       get :list
+      post 'search', :action => 'search'
     end
   end
 
