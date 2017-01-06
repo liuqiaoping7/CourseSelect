@@ -40,6 +40,10 @@ class CoursesController < ApplicationController
   def watch
     @course=Course.find_by_id(params[:id])
   end
+  
+  def choose
+    @course=Course.find_by_id(params[:id])
+  end
 
   def update
     @course = Course.find_by_id(params[:id])
@@ -111,7 +115,9 @@ class CoursesController < ApplicationController
     @name= params[:name]
     @coursetype= params[:coursetype]
     @course=Course.all
-    @searchcourses=@course.find_all{|n| ((@name.empty?) || (n.name == @name)) &&((@coursetype.empty?) || (n.course_type == @coursetype)) }
+    # @searchcourses=@course.find_all{|n| ((@name.empty?) || (n.name == @name)) &&((@coursetype.empty?) || (n.course_type == @coursetype)) }
+    @searchcourses=@course.find_by_sql("select * from courses where name like '%"+@name+"%' and course_type='"+@coursetype+ "'")
+
     # @searchcourses=@course.find_all{|n| (n.course_type == @coursetype)}
     # @course.each do |course|
     #   if (course.course_type == @coursetype )

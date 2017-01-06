@@ -43,7 +43,8 @@
                   <td><%= course.teaching_type %></td>
                   <td><%= course.exam_type %></td>
                   <td><%= course.teacher.name %></td>
-                  <td><%= link_to "加入课程", select_course_path(course), class: 'btn-sm btn-info' %></td>
+                    <td><%= link_to "查看信息", choose_course_url(course), class: 'btn btn-xs btn-info' %></td>
+                  <td><%= link_to "加入课程", select_course_path(course), class: 'btn-sm btn-success' %></td>
 
                 </tr>
             <% end %>
