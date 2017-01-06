@@ -108,9 +108,10 @@ class CoursesController < ApplicationController
     # @course=Course.find_by_sql("select * from courses where (open=true) and (course_type=#{@coursetype})")
     # @course=Course.find :all, :conditions => ["open =  true"]
     # @course=Course.select :conditions => ["open =  true"]
+    @name= params[:name]
     @coursetype= params[:coursetype]
     @course=Course.all
-    @searchcourses=@course.find_all{|n| (@coursetype.empty?) || (n.course_type == @coursetype)}
+    @searchcourses=@course.find_all{|n| ((@name.empty?) || (n.name == @name)) &&((@coursetype.empty?) || (n.course_type == @coursetype)) }
     # @searchcourses=@course.find_all{|n| (n.course_type == @coursetype)}
     # @course.each do |course|
     #   if (course.course_type == @coursetype )
