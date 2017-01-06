@@ -30,7 +30,19 @@
 
                   <td><%= course.course_code %></td>
                   <td><%= course.name %></td>
-                  <td><%= course.course_credit %>/<%= course.course_period %></td>
+                  <td>
+                  <%if course.course_credit!=nil %>
+                  <%= course.course_credit %>
+                  <% else %>
+                  暂无
+                  <% end %>
+                  /
+                  <%if course.course_period!=nil %>
+                  <%= course.course_period %>
+                  <% else %>
+                  暂无
+                  <% end %>
+                  </td>
                   <td><%= course.exam_type %></td>
                   <td><%= course.teacher.name %></td>
 
