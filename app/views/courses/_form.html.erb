@@ -35,14 +35,8 @@
       <%= f.label "考试方式", class: 'col-sm-3 control-label' %>
       <div class="col-sm-9">
         <div class="input-group">
-          <div class="input-group-addon"><span class="glyphicon glyphicon-arrow-right"></span></div>
+        <div class="input-group-addon"><span class="glyphicon glyphicon-arrow-right"></span></div>
           <%= f.select :exam_type,Course::Examtype %>
-          <!--<select class="form-control",name="course[exam_type]" id="course_exam_type"><option value="课堂开卷">课堂开卷</option>-->
-          <!--<option selected="selected" value="闭卷笔试">闭卷笔试</option>-->
-          <!--<option value="读书报告">读书报告</option>-->
-          <!--<option value="课上讨论">课上讨论</option>-->
-          <!--<option value="大作业">大作业</option>-->
-          <!--<option value="其他">其他</option></select>-->
         </div>
       </div>
     </div>
