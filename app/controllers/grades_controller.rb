@@ -15,6 +15,7 @@ class GradesController < ApplicationController
     else
       flash={:danger => "修改成绩失败.请检查"}
       render 'edit'
+      #redirect_to grades_path(course_id: params[:course_id]), flash: flash
     end
 
   end
@@ -25,7 +26,9 @@ class GradesController < ApplicationController
       @grades=@course.grades
       @grades.each do |grade|
       grade.course.average=grade.course.average+(grade.grade).to_f/(grade.course.users.length).to_f
-      end      
+      grade.course.average=grade.course.average.round(2)
+      end
+     
     elsif student_logged_in?
       @grades=current_user.grades
     else
