@@ -30,22 +30,37 @@
 
                   <td><%= course.course_code %></td>
                   <td><%= course.name %></td>
-                  <td><%= course.credit %></td>
+                  <td>
+                  <%if course.course_credit!=nil %>
+                  <%= course.course_credit %>学分
+                  <% else %>
+                  暂无
+                  <% end %>
+                  /
+                  <%if course.course_period!=nil %>
+                  <%= course.course_period %>学时
+                  <% else %>
+                  暂无
+                  <% end %>
+                  </td>
                   <td><%= course.exam_type %></td>
                   <td><%= course.teacher.name %></td>
 
                   <% if teacher_logged_in? %>
                       <td><%= link_to "编辑", edit_course_url(course), class: 'btn btn-xs btn-info' %></td>
-                      <% if course.open? %>
+                    <% if course.open? %> 
                       <td><%= link_to "关闭", close_course_path(course), :method => "get", class: 'btn btn-xs btn-warning', :data => {confirm: '确定要关闭此课程?'} %></td>
                       <% else %>
                       <td><%= link_to "开启", open_course_path(course), :method => "get", class: 'btn btn-xs btn-success', :data => {confirm: '确定要开启此课程?'} %></td>
                       <% end %>
+                   
                       <td><%= link_to "删除", course_path(course), :method => "delete", class: 'btn btn-xs btn-danger', :data => {confirm: '确定要删除此课程?'} %></td>
                   <% elsif student_logged_in? %>
+                      <td><%= link_to "查看信息", watch_course_url(course), class: 'btn btn-xs btn-info' %></td>
                       <td><%= link_to "删除", quit_course_path(course), class: 'btn-sm btn-danger' %></td>
                   <% end %>
                 </tr>
+                
             <% end %>
             </tbody>
           </table>

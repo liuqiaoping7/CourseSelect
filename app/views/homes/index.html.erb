@@ -8,58 +8,113 @@
     <!--<div id="main" style="width: 500px;height:300px;"></div>-->
    
       </div>
-      
+      <script>
+
+
+</script>
       
 
    <!-- </div>-->
 
     <div class="col-md-4">
-      <h1>在线选课系统样本</h1>
-      <p>这个样本系统是基于国科大研究生课程(高级软件工程)开发的项目,目的是帮助入门者学习RoR(Ruby on Rails),这是适合新学者的入手的第一个项目</p>
-      <p>入门者可以在这个样本系统上增加更多的功能:</p>
+      <h1>在线选课系统</h1>
+      <p>这个样本系统是基于国科大研究生课程(高级软件工程)开发的项目,目的是帮助入门者学习RoR(Ruby on Rails),这是根据基础项目增加了适当的功能后的版本</p>
+      <p>主要功能包括:成绩录入、课程统计、学生课表、选课列表</p>
       <ul>
-
         <li class="text-danger">
-          处理选课冲突、控制选课人数
-        </li>
-        <li class="text-danger">
-          统计选课学分,增加选课的开放、关闭功能
-        </li>
-        <li class="text-danger">
-          自定义管理员后台
-        </li>
-        <li class="text-danger">
-          基于OAuth的授权登陆
-        </li>
-        <li class="text-danger">
-          Excel格式的数据导入
+          组内成员：刘桥平、黄若然、周威、姚彬
         </li>
       </ul>
 
     </div>
+    <h4 class="text-center">课程推荐列表</h4>
     
+<!--    <div class="input-group" >-->
+        
+<!--        <%= form_tag search_path, method: 'get', role: "search" do %>-->
+<!--            <div class="input-group">-->
+<!--              <%= text_field_tag 'query', params[:query], class: "form-control input", placeholder: "请输入课程名称" %>-->
+<!--              <div class="input-group-btn">-->
+<!--                <button class="btn btn-default btn" type="submit"><i class="glyphicon glyphicon-search"></i>-->
+<!--                </button>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--        <% end %>-->
+        
+<!--<input type="text" class="form-control input-lg" placeholder="请输入需要检索的课程名"><span class="input-group-addon btn">搜索</span>-->
+<!--    </div>-->
+
     
-    <div class="input-group" >
-<input type="text" class="form-control input-lg" placeholder="请输入需要检索的课程名"><span class="input-group-addon btn">搜索</span>
-</div>
-<div class="col-md-4">
-<table class="table table-hover">
-	<caption>搜素结果</caption>
-	<thead>
-		<tr>
-			<th>编号</th>
-			<th>名称</th>
-			<th>主讲</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td><a href="#">091M4001H</a></td>
-			<td>计算机体系结构</td>
-			<td>胡伟武</td>
-		</tr>
-	</tbody>
-</table>
+<!--     <% unless params[:query].blank? %>-->
+<!--        <div class="row">-->
+<!--          <div class="col-sm-6">-->
+<!--            <text class="text-danger">搜索结果显示:-->
+<!--              <mark><%= params[:query] %></mark>-->
+<!--            </text>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <hr>-->
+<!--    <% end %>-->
+    
+<!--<table class="table table-responsive table-condensed table-hover">-->
+<!--	<thead>-->
+<!--		<tr>-->
+<!--			<th>编号</th>-->
+<!--			<th>名称</th>-->
+<!--			<th>课程类型</th>-->
+<!--		</tr>-->
+<!--	</thead>-->
+<!--	<tbody>-->
+<!--<% unless params[:query].blank? %>-->
+<!--	<% @courses.each do |course| %>-->
+<!--          <tr>-->
+<!--            <td>-->
+<!--              <text style="font-size: small"><%= course.course_code %></text>-->
+<!--            </td>-->
+
+<!--            <td>-->
+<!--              <text style="font-size: small"><%= course.name %></text>-->
+<!--            </td>-->
+<!--            <td>-->
+<!--              <text style="font-size: small"><%= course.course_type %></text>-->
+<!--            </td>-->
+
+<!--          </tr>-->
+<!--      <% end %>-->
+<!-- <% end %>-->
+<!--      </tbody>-->
+	<!--<tbody>
+<!--		<tr>-->
+<!--			<td><a href="#">091M4001H</a></td>-->
+<!--			<td>计算机体系结构</td>-->
+<!--			<td>胡伟武</td>-->
+<!--		</tr>-->
+<!--	</tbody>-->
+<!--</table>-->
+
+
+
+<div class="col-md-4" >
+  <table class="table table-responsive table-condensed table-hover">
+      <thead>
+      <tr>
+        <th>课程名</th>
+        <th>学分</th>
+        <th>类别</th>
+        <th>时间</th>
+        
+      </tr>
+      </thead>
+      <tbody id="recommend">
+          <tr>
+            <td>
+              <text style="font-size: small">计算机体系结构</text>
+            </td>
+          </tr>
+
+      </tbody>
+    </table>
+
     </div>
     
   </div>
@@ -123,6 +178,27 @@
           success: function (data) {
             
             var course = eval("(" + data + ")");  
+            
+            
+            
+            var command = "";
+            //获取6个随机数
+            for(var i=0;i<6;i++)
+            {
+                //生成随机数
+                var random_number = Math.floor(Math.random()*course.length);
+               command += "<tr><td><text style='font-size: small'>"+course[random_number].name+"</text></td>"+
+               "<td><text style='font-size: small'>"+course[random_number].credit+"</text></td>"+
+               "<td><text style='font-size: small'>"+course[random_number].course_type+"</text></td>"+
+               "<td><text style='font-size: small'>"+course[random_number].course_time+"</text></td>"+
+               +"</tr>"
+                //获取随机数所在课程信息
+                
+            }
+            
+             //获取tbodyid
+             $("#recommend").html(command);
+            
             
             
             //计算学科分值分布

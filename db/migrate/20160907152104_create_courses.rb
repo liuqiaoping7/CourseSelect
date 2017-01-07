@@ -15,9 +15,19 @@ class CreateCourses < ActiveRecord::Migration
       t.string :course_time
       t.string :course_week
       t.boolean :degree_course, default: false
-      t.belongs_to :teacher
-
-      t.timestamps null: false
+      
+      
+     t.integer :week_begin, default: 1
+     t.integer :week_end, default: 20
+     t.integer :time_begin, default: 1
+     t.integer :time_end, default: 2
+     
+     t.integer :course_weekday,default: 1
+     t.float :course_period, default: 40
+     t.integer :course_credit, default: 40
+     t.boolean :open, default: true
+     t.belongs_to :teacher
+     t.timestamps null: false
     end
   end
 end

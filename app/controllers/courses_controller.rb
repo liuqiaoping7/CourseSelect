@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
 
-  before_action :student_logged_in, only: [:select, :quit, :list]
+  before_action :student_logged_in, only: [:select, :quit, :list, :search, :watch] #add watch
   before_action :teacher_logged_in, only: [:new, :create, :edit, :destroy, :update,:open]
   before_action :logged_in, only: :index
   
@@ -36,6 +36,14 @@ class CoursesController < ApplicationController
   def edit
     @course=Course.find_by_id(params[:id])
   end
+  
+  def watch
+    @course=Course.find_by_id(params[:id])
+  end
+  
+  def choose
+    @course=Course.find_by_id(params[:id])
+  end
 
   def update
     @course = Course.find_by_id(params[:id])
@@ -52,7 +60,7 @@ class CoursesController < ApplicationController
   def destroy
     @course=Course.find_by_id(params[:id])
     current_user.teaching_courses.delete(@course)
-    @course.dest
+    @course.destroy
     flash={:success => "成功删除课程: #{@course.name}"}
     redirect_to courses_path, flash: flash
   end
@@ -78,6 +86,11 @@ class CoursesController < ApplicationController
     end
     redirect_to courses_path, flash: flash
   end
+  
+  def schedule
+    @course=current_user.teaching_courses if teacher_logged_in?
+  end
+  
 
   #-------------------------for students----------------------
 
@@ -94,6 +107,27 @@ class CoursesController < ApplicationController
     end
   end
 
+  def search
+    # @course=Course.find_by_name(params[:name])
+    # @course=Course.find_by_sql("select * from courses where (open=true) and (course_type=#{@coursetype})")
+    # @course=Course.find :all, :conditions => ["open =  true"]
+    # @course=Course.select :conditions => ["open =  true"]
+    @name= params[:name]
+    @coursetype= params[:coursetype]
+    @course=Course.all
+    # @searchcourses=@course.find_all{|n| ((@name.empty?) || (n.name == @name)) &&((@coursetype.empty?) || (n.course_type == @coursetype)) }
+    @searchcourses=@course.find_by_sql("select * from courses where name like '%"+@name+"%' and course_type='"+@coursetype+ "'")
+
+    # @searchcourses=@course.find_all{|n| (n.course_type == @coursetype)}
+    # @course.each do |course|
+    #   if (course.course_type == @coursetype )
+    #     @searchcourses<<course
+    #   end
+    #   @searchcourses<<course
+    # end
+    @course=@searchcourses
+  end
+
   def select
     @course=Course.find_by_id(params[:id])
     current_user.courses<<@course
@@ -102,7 +136,7 @@ class CoursesController < ApplicationController
   end
 
   def quit
-    @course=Course.find_by(params[:id])
+    @course=Course.find_by_id(params[:id])
     current_user.courses.delete(@course)
     
     flash={:success => "成功退选课程: #{@course.name}"}
@@ -143,8 +177,8 @@ class CoursesController < ApplicationController
 
   def course_params
     params.require(:course).permit(:course_code, :name, :course_type, :teaching_type, :exam_type,
-                                   :credit, :limit_num, :class_room, :course_time, :course_week)
+                                  :limit_num, :class_room,  :course_weekday, :week_begin, :week_end, :time_begin, :time_end, :course_credit, :course_period)
   end
-
+#:course_time, :course_week, 
 
 end

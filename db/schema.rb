@@ -31,9 +31,17 @@ ActiveRecord::Schema.define(version: 20161119021315) do
     t.string   "course_week"
     t.boolean  "degree_course", default: false
     t.integer  "teacher_id"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.boolean  "open",          default: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.boolean  "open",           default: true
+    t.integer  "week_begin",     default: 1
+    t.integer  "week_end",       default: 20
+    t.integer  "time_begin",     default: 1
+    t.integer  "time_end",       default: 2
+    t.integer  "course_weekday", default: 1
+    t.integer  "course_period",  default: 40
+    t.integer  "course_credit"
+
   end
 
   create_table "grades", force: :cascade do |t|
