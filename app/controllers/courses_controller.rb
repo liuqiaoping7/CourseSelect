@@ -105,6 +105,7 @@ class CoursesController < ApplicationController
             @course.delete(course)
         end
     end
+
   end
 
   def search
@@ -116,6 +117,25 @@ class CoursesController < ApplicationController
     # @searchcourses=@courses.find_by_sql("select * from courses where name like '%"+@coursename+"%' \
     #                                                and course_type='"+@coursetype+ "'")
     @courses=@searchcourses
+
+    #----------分页功能的实现---------#
+    total = @courses.count
+    params[:total] = total
+    params[:page] ||= 1  #进行初始化
+    if total % $PageSize == 0
+      params[:pageNum] = total / $PageSize
+    else
+      params[:pageNum] = total / $PageSize + 1
+    end
+    #计算分页的开始和结束位置
+    params[:pageStart] = (params[:page].to_i - 1) * $PageSize
+
+    if params[:pageStart].to_i + $PageSize <= params[:total].to_i
+      params[:pageEnd] = params[:pageStart].to_i + $PageSize - 1
+    else
+      params[:pageEnd] = params[:total].to_i - 1  #最后一页
+    end
+
   end
 
   def select
