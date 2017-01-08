@@ -6,7 +6,7 @@ class Course < ActiveRecord::Base
   belongs_to :teacher, class_name: "User"
 
   validates :name, :course_time, :course_week,
-            :class_room, :credit,:course_weekday, :week_begin, :week_end, :time_begin, :time_end,  :course_credit, :course_period,
+            :class_room, :weekday, :week_begin, :week_end, :time_begin, :time_end,  :credit, :period,
             presence: true, length: {maximum: 50}
   Teachingtype=["课堂讲授为主","授课、讨论"]
   # validates :teaching_type,:inclusion=>Teachingtype,presence: true
