@@ -108,24 +108,14 @@ class CoursesController < ApplicationController
   end
 
   def search
-    # @course=Course.find_by_name(params[:name])
-    # @course=Course.find_by_sql("select * from courses where (open=true) and (course_type=#{@coursetype})")
-    # @course=Course.find :all, :conditions => ["open =  true"]
-    # @course=Course.select :conditions => ["open =  true"]
-    @name= params[:name]
+    @coursename= params[:coursename]
     @coursetype= params[:coursetype]
-    @course=Course.all
-    # @searchcourses=@course.find_all{|n| ((@name.empty?) || (n.name == @name)) &&((@coursetype.empty?) || (n.course_type == @coursetype)) }
-    @searchcourses=@course.find_by_sql("select * from courses where name like '%"+@name+"%' and course_type='"+@coursetype+ "'")
-
-    # @searchcourses=@course.find_all{|n| (n.course_type == @coursetype)}
-    # @course.each do |course|
-    #   if (course.course_type == @coursetype )
-    #     @searchcourses<<course
-    #   end
-    #   @searchcourses<<course
-    # end
-    @course=@searchcourses
+    @courses=Course.all
+    @searchcourses=@courses.find_all{|n| ((@coursename.empty?) || (n.name == @coursename)) \
+                                       &&((@coursetype.empty?) || (n.course_type == @coursetype)) }
+    # @searchcourses=@courses.find_by_sql("select * from courses where name like '%"+@coursename+"%' \
+    #                                                and course_type='"+@coursetype+ "'")
+    @courses=@searchcourses
   end
 
   def select
